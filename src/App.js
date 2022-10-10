@@ -14,7 +14,7 @@ const defaultProps = {
 
 function generateLayout() {
   return [
-    { w: 2, h: 3, x: 10, y: 9, i: "0", moved: false, static: false },
+    { w: 2, h: 3, x: 10, y: 0, i: "0", moved: false, static: false },
     { w: 2, h: 3, x: 10, y: 3, i: "1", moved: false, static: false },
     { w: 2, h: 3, x: 10, y: 6, i: "2", moved: false, static: false },
     { w: 2, h: 3, x: 10, y: 12, i: "3", moved: false, static: false },
@@ -22,8 +22,8 @@ function generateLayout() {
       w: 2,
       h: 3,
       x: 10,
-      y: 0,
-      i: "7305f615-4324-4c3b-862c-1dbe12c92a7f",
+      y: 15,
+      i: "4",
       moved: false,
       static: false,
       isDraggable: true,
@@ -32,28 +32,98 @@ function generateLayout() {
       w: 2,
       h: 3,
       x: 10,
-      y: 15,
-      i: "d7af163d-9ddb-4246-a9f1-83169f69e2ba",
-      moved: false,
-      static: false,
-      isDraggable: true,
-    },
-    {
-      w: 2,
-      h: 2,
-      x: 10,
       y: 18,
-      i: "fa18447c-9e9a-4b47-89ae-7ecf7388cf13",
+      i: "5",
       moved: false,
       static: false,
       isDraggable: true,
     },
     {
       w: 2,
-      h: 1,
-      x: 6,
-      y: 0,
-      i: "69cb6b6c-1f8b-4771-a48a-d90ef50dcd8f",
+      h: 3,
+      x: 10,
+      y: 21,
+      i: "6",
+      moved: false,
+      static: false,
+      isDraggable: true,
+    },
+    {
+      w: 2,
+      h: 3,
+      x: 10,
+      y: 24,
+      i: "7",
+      moved: false,
+      static: false,
+      isDraggable: true,
+    },
+    {
+      w: 2,
+      h: 3,
+      x: 10,
+      y: 27,
+      i: "8",
+      moved: false,
+      static: false,
+      isDraggable: true,
+    },
+    {
+      w: 2,
+      h: 3,
+      x: 10,
+      y: 30,
+      i: "9",
+      moved: false,
+      static: false,
+      isDraggable: true,
+    },
+    {
+      w: 2,
+      h: 3,
+      x: 10,
+      y: 33,
+      i: "10",
+      moved: false,
+      static: false,
+      isDraggable: true,
+    },
+    {
+      w: 2,
+      h: 3,
+      x: 10,
+      y: 36,
+      i: "11",
+      moved: false,
+      static: false,
+      isDraggable: true,
+    },
+    {
+      w: 2,
+      h: 3,
+      x: 10,
+      y: 39,
+      i: "12",
+      moved: false,
+      static: false,
+      isDraggable: true,
+    },
+    {
+      w: 2,
+      h: 3,
+      x: 10,
+      y: 42,
+      i: "13",
+      moved: false,
+      static: false,
+      isDraggable: true,
+    },
+    {
+      w: 2,
+      h: 3,
+      x: 10,
+      y: 45,
+      i: "14",
       moved: false,
       static: false,
       isDraggable: true,
@@ -107,10 +177,13 @@ const App = () => {
             <span className="text">{i}</span>
           )} */}
 
-          <p class="text-[#067c7c] font-semibold uppercase">Unique views</p>
-          <div class="flex justify-between space-x-4 ">
-            <h3 class="text-base font-semibold">icon src</h3>
-            <h3 class="text-3xl">987 views</h3>
+          <p className="text-[#067c7c] font-semibold uppercase drag-handle">
+            Unique views
+          </p>
+
+          <div className="flex justify-between space-x-4 ">
+            <h3 className="text-base font-semibold">icon src</h3>
+            <h3 className="text-3xl">987 views</h3>
           </div>
         </div>
       );
@@ -134,36 +207,39 @@ const App = () => {
         : "horizontal";
     setState((prev) => ({ ...prev, compactType }));
   };
+  useEffect(() => {
+    console.log({ lg: state.layouts.lg });
+  }, [state.layouts.lg]);
 
   const onLayoutChange = (layout, layouts) => {
     console.log({ layout, layouts });
-    if (layout.length > 0) {
-      const updatedLayout = {
-        layouts: { lg: layout },
-      };
-      setState((prev) => ({
-        ...prev,
-        updatedLayout,
-      }));
-    }
+
+    const updatedLayout = {
+      layouts: { lg: layout },
+    };
+    setState((prev) => ({
+      ...prev,
+      ...updatedLayout,
+    }));
   };
   const onDragStop = (layout, layouts) => {
-    const updatedLayout = {
-      layouts: { lg: layout },
-    };
-    setState((prev) => ({
-      ...prev,
-      updatedLayout,
-    }));
+    // const updatedLayout = {
+    //   layouts: { lg: layout },
+    // };
+    // console.log({ layouts });
+    // setState((prev) => ({
+    //   ...prev,
+    //   updatedLayout,
+    // }));
   };
   const onResizeStop = (layout, layouts) => {
-    const updatedLayout = {
-      layouts: { lg: layout },
-    };
-    setState((prev) => ({
-      ...prev,
-      updatedLayout,
-    }));
+    // const updatedLayout = {
+    //   layouts: { lg: layout },
+    // };
+    // setState((prev) => ({
+    //   ...prev,
+    //   updatedLayout,
+    // }));
   };
 
   const onNewLayout = () => {
@@ -174,26 +250,26 @@ const App = () => {
   };
 
   const onDrop = (layout, layoutItem, _event) => {
-    setState((prev) => ({
-      ...prev,
-      layouts: {
-        lg: layout,
-      },
-    }));
+    // setState((prev) => ({
+    //   ...prev,
+    //   layouts: {
+    //     lg: layout,
+    //   },
+    // }));
   };
 
   return (
     <div>
-      <h1>{JSON.stringify(state.layouts.lg)}</h1>
-      <div>
+      <h2>{JSON.stringify(state.layouts.lg)}</h2>
+      {/* <div>
         Current Breakpoint: {state.currentBreakpoint} (
         {defaultProps.cols[state.currentBreakpoint]} columns)
       </div>
       <div className="text-2xl font-semibold">
         Compaction type: {state.compactType || "No Compaction"}
-      </div>
-      <button onClick={onNewLayout}>Generate New Layout</button>
-      <button onClick={onCompactTypeChange}>Change Compaction Type</button>
+      </div> */}
+      {/* <button onClick={onNewLayout}>Generate New Layout</button> */}
+      {/* <button onClick={onCompactTypeChange}>Change Compaction Type</button> */}
       <div
         className="droppable-element"
         draggable={true}
@@ -206,31 +282,33 @@ const App = () => {
       >
         Droppable Element (Drag me!)
       </div>
-      <ResponsiveReactGridLayout
-        {...defaultProps}
-        layouts={state.layouts}
-        onBreakpointChange={onBreakpointChange}
-        // onLayoutChange={onLayoutChange}
-        onDragStop={onDragStop}
-        onResizeStop={onResizeStop}
-        onDrop={onDrop}
-        // WidthProvider option
-        measureBeforeMount={false}
-        // I like to have it animate on mount. If you don't, delete `useCSSTransforms` (it's default `true`)
-        // and set `measureBeforeMount={true}`.
-        useCSSTransforms={state.mounted}
-        compactType={state.compactType}
-        preventCollision={!state.compactType}
-        isDroppable={true}
-        droppingItem={{
-          i: `${uuidv4()}`,
-          w: 2,
-          h: 1,
-        }}
-        margin={[10, 10]}
-      >
-        {generateDOM()}
-      </ResponsiveReactGridLayout>
+      <div style={{ background: "red", height: "1122.519685px" }}>
+        <ResponsiveReactGridLayout
+          {...defaultProps}
+          layouts={state.layouts}
+          onBreakpointChange={onBreakpointChange}
+          onLayoutChange={onLayoutChange}
+          onDragStop={onDragStop}
+          onResizeStop={onResizeStop}
+          onDrop={onDrop}
+          // WidthProvider option
+          measureBeforeMount={false}
+          // I like to have it animate on mount. If you don't, delete `useCSSTransforms` (it's default `true`)
+          // and set `measureBeforeMount={true}`.
+          useCSSTransforms={state.mounted}
+          compactType={state.compactType}
+          preventCollision={!state.compactType}
+          isDroppable={true}
+          droppingItem={{
+            i: `${uuidv4()}`,
+            w: 2,
+            h: 2,
+          }}
+          margin={[10, 10]}
+        >
+          {generateDOM()}
+        </ResponsiveReactGridLayout>
+      </div>
     </div>
   );
 };
